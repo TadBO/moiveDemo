@@ -25,7 +25,7 @@
             $scope.maxPage = Math.ceil( data.total / 3 );
             $scope.movieList = data;
             $scope.$apply();
-        }, {start: ($scope.page - 1) * 3, count: 3 });
+        }, {start: ($scope.page - 1) * 3, count: 3 , q: $routeParams.q});
     });
     app.controller('movieDetialCtrl', function ($scope, $routeParams,httpService) {
         //$scope.test = '测试';
@@ -36,5 +36,13 @@
             // console.log($scope.movieDetial);
             $scope.$apply();
         })
-    })
+    });
+    app.controller('movieSearch', function ($scope, $location) {
+        $scope.movieText = '';
+        $scope.search = function () {
+            if($scope.movieText) {
+                $location.path('/movie/search').search("q", $scope.movieText);
+            }
+        }
+    });
 })(angular);
