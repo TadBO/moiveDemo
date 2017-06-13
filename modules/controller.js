@@ -3,14 +3,29 @@
  */
 (function (angular) {
     var app = angular.module('movieApp.controller', []);
-    app.controller('movieListCtrl', function ($scope, $routeParams, httpService) {
+    app.controller('movieListCtrl', function ($scope, $routeParams, $location, httpService) {
         //$scope.test = '测试';
-        $scope.movieList = null;
         var url = 'https://api.douban.com/v2/movie/' + $routeParams.type;
+        $scope.maxPage = 0;
+        $scope.page = parseInt($routeParams.page || 1);
+        $scope.movieList = {title: '正在加载中。。。'};
+        $scope.upPage = function () {
+            if($scope.page > 1) {
+                $scope.page--;
+                $location.path('/movie/'+$routeParams.type + '/' + $scope.page);
+            }
+        }
+        $scope.downPage = function () {
+            if($scope.page < $scope.maxPage) {
+                $scope.page++;
+                $location.path('/movie/'+$routeParams.type + '/' + $scope.page);
+            }
+        }
         httpService.getJsonp(url, function (data) {
+            $scope.maxPage = Math.ceil( data.total / 3 );
             $scope.movieList = data;
             console.log($scope.movieList);
             $scope.$apply();
-        })
-    })
+        }, {start: ($scope.page - 1) * 3, count: 3 });
+    });
 })(angular);
