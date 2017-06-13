@@ -24,8 +24,17 @@
         httpService.getJsonp(url, function (data) {
             $scope.maxPage = Math.ceil( data.total / 3 );
             $scope.movieList = data;
-            console.log($scope.movieList);
             $scope.$apply();
         }, {start: ($scope.page - 1) * 3, count: 3 });
     });
+    app.controller('movieDetialCtrl', function ($scope, $routeParams,httpService) {
+        //$scope.test = '测试';
+        $scope.movieDetial = null;
+        var url = 'https://api.douban.com/v2/movie/subject/' + $routeParams.id;
+        httpService.getJsonp(url, function (data) {
+            $scope.movieDetial = data;
+            // console.log($scope.movieDetial);
+            $scope.$apply();
+        })
+    })
 })(angular);

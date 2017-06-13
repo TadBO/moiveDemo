@@ -10,5 +10,9 @@
                 templateUrl: './template/movieListTemplate.html',
                 controller: 'movieListCtrl'
             })
+            .when('/movieDetial/:id', {
+                templateUrl: './template/movieDetialTemplate.html',
+                controller: 'movieDetialCtrl'
+            })
     })
 })(angular)
