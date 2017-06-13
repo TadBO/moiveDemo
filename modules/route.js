@@ -6,7 +6,8 @@
     app.config(function ($routeProvider) {
         $routeProvider
             .when('/movie/:type', {
-                template: '<h1>{{ test }}</h1>',
+                //template: '<h1>{{ test }}</h1>',
+                templateUrl: './template/movieListTemplate.html',
                 controller: 'movieListCtrl'
             })
     })
