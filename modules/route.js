@@ -14,5 +14,8 @@
                 templateUrl: './template/movieDetialTemplate.html',
                 controller: 'movieDetialCtrl'
             })
+            .otherwise({
+                redirectTo: '/movie/in_theaters'
+            })
     })
 })(angular)
